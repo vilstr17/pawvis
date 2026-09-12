@@ -110,6 +110,7 @@ final class DictationController: ObservableObject {
             // No capsule work of our own — voice control's transcript overlay
             // is woken only by wake-worded speech, and dictation types
             // silently while the recognizer revises its hypothesis.
+            break
 
         case .completed(_, let transcript):
             let text = transcript.trimmingCharacters(in: .whitespacesAndNewlines)
