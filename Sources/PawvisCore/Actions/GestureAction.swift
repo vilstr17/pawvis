@@ -31,7 +31,7 @@ public struct GestureAction: Codable, Equatable, Sendable {
         case brightnessUp, brightnessDown
 
         // Pawvis itself.
-        case stopTracking, toggleVoiceControl
+        case stopTracking, toggleVoiceControl, toggleDictation
 
         // Custom — the argument carries the app name, the shell command, or
         // the shortcut to press.
@@ -156,6 +156,7 @@ public struct GestureAction: Codable, Equatable, Sendable {
         case .brightnessDown: return "Brightness down"
         case .stopTracking: return "Tracking stopped"
         case .toggleVoiceControl: return "Voice control toggled"
+        case .toggleDictation: return "Dictation toggled"
         case .openApp: return "Opening \(argument.trimmingCharacters(in: .whitespaces))"
         case .runShellCommand: return "Running command"
         case .keyboardShortcut:
@@ -180,7 +181,7 @@ extension GestureAction.Kind {
              .previousTab, .nextTab, .playPause,
              .volumeUp, .volumeDown, .volumeMute, .brightnessUp, .brightnessDown:
             return .navigation
-        case .stopTracking, .toggleVoiceControl:
+        case .stopTracking, .toggleVoiceControl, .toggleDictation:
             return .pawvis
         case .openApp, .runShellCommand, .keyboardShortcut:
             return .custom
@@ -231,6 +232,7 @@ extension GestureAction.Kind {
         case .brightnessDown: return "Brightness down"
         case .stopTracking: return "Stop hand tracking"
         case .toggleVoiceControl: return "Start / stop voice control"
+        case .toggleDictation: return "Start / stop dictation (types your speech)"
         case .openApp: return "Open app"
         case .runShellCommand: return "Run shell command"
         case .keyboardShortcut: return "Press keyboard shortcut"

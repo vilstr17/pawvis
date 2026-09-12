@@ -11,6 +11,10 @@ import QuartzCore
 final class PawvisController: ObservableObject {
     let settingsStore: SettingsStore
     let voice = VoiceController()
+    /// Continuous dictation (speech typed straight into the focused app),
+    /// toggled by its gesture action — independent of voice control's
+    /// session, so neither one's start or stop touches the other.
+    let dictation = DictationController()
     /// The theremin: hands into sound, with its takes. Owned here, like
     /// voice control, so the menu can read its state and a take survives
     /// its window closing; it borrows the camera through `borrowCamera`.
@@ -83,6 +87,7 @@ final class PawvisController: ObservableObject {
         theremin.attach(controller: self)
         actionRunner.stopTracking = { [weak self] in self?.stopTracking() }
         actionRunner.toggleVoiceControl = { [weak self] in self?.voice.toggle() }
+        actionRunner.toggleDictation = { [weak self] in self?.dictation.toggle() }
         actionRunner.onFollowUp = { [weak self] outcome in
             guard let self else { return }
             self.gestureNotice = (text: "🐾 \(outcome)",
@@ -679,6 +684,7 @@ final class PawvisController: ObservableObject {
         theremin.shutdown()
         stopTracking()
         voice.stop()
+        dictation.stop()
     }
 
     func refreshPermissions() {

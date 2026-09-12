@@ -13,6 +13,7 @@ final class GestureActionRunner {
     /// Pawvis itself rather than out into the system.
     var stopTracking: (() -> Void)?
     var toggleVoiceControl: (() -> Void)?
+    var toggleDictation: (() -> Void)?
     /// A long-running action finished after `perform` returned: the outcome
     /// line replaces the provisional one in the pill.
     var onFollowUp: ((String) -> Void)?
@@ -72,6 +73,10 @@ final class GestureActionRunner {
 
         case .toggleVoiceControl:
             toggleVoiceControl?()
+            return action.feedback
+
+        case .toggleDictation:
+            toggleDictation?()
             return action.feedback
 
         case .openApp:

@@ -22,6 +22,7 @@ func runActionEval(_ args: [String]) -> Int32 {
     runner.onFollowUp = { followUp = $0 }
     runner.stopTracking = { print("(would stop tracking)") }
     runner.toggleVoiceControl = { print("(would toggle voice control)") }
+    runner.toggleDictation = { print("(would toggle dictation)") }
 
     print("perform: \(action.summary)")
     let feedback = runner.perform(action)
